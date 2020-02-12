@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -38,6 +40,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateHomeBanners(context);
+            }
+        });
+
+        ivb1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    SharedPreferences ShdPrefObj = context.getSharedPreferences("URL", Context.MODE_PRIVATE);
+                    String result = ShdPrefObj.getString("banner", "");
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(result));
+                    startActivity(browserIntent);
+
+                } catch (Exception e) {
+                }
+            }
+        });
+
+        ivb2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    SharedPreferences ShdPrefObj = context.getSharedPreferences("URL", Context.MODE_PRIVATE);
+                    String result = ShdPrefObj.getString("banner", "");
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(result));
+                    startActivity(browserIntent);
+
+                } catch (Exception e) {
+                }
             }
         });
     }
@@ -116,6 +146,14 @@ public class MainActivity extends AppCompatActivity {
 
 
             String RESULTDATA = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"><title>highest income generating ro</title><style>body {background-image: radial-gradient(#41b0f4, #80cbf9);}.top {text-align: center;}h1 {font-size: 15px;}.column {float: right;}.left,.right {width: 25%;text-align: center;margin-top: 10px;}.middle {margin-top: 10px; width: 50%;text-align: center;}.row {padding-top: 10px;}.row:after {content: \"\";display: table; clear: both;}.well {margin-top: 20px;font-size: 80%; margin-bottom: 0px; }h3 {font-size: 70%;font-style: italic;color: #001e4c;margin-bottom: 0px;font-weight: bold;}h1,h2 {color: #001e4c;font-weight: normal;}@font-face {font-family: \"advert\";src: url(\"AdvertisingScriptBoldTrial.ttf\");}@font-face {font-family: \"Lato-Light\";src: url(\"Lato-Light.ttf\");}@font-face {font-family: \"algerian\";src: url(\"Algerian_Condensed_LET_Plain1.ttf\");}</style></head><body><section><div class=\"top\"><h1 style=\"font-family: Lato-Light; font-size: 100%;FONT-WEIGHT:BOLD; margin-top: 10px; margin-bottom: 1px;\">KGBNET - Internet banking</h1><img src=\"4.png\" alt=\"underline\" width=\"40%\"></div><div class=\"row\"><div class=\"column right\"><img src=\"box1.png\" width=\"75px\" height=auto style=\"margin-right: 70px;\"></div><div class=\"column middle\" style=\"text-align:center;\"><h2 style=\"font-family: algerian; font-size: 80%;  margin-top: 10px;\">WE ARE PROUD TO INTRODUCE</h2><h2 style=\"margin-top:-10px; font-family: algerian; font-size: 100%; \">OUR NEW PRODUCT!</h2><h2 class=\"well\" style=\"font-family: advert; margin-top: 10px;\">Utilize its full potential</h2></div><div class=\"column left\"><img class=\"second\" src=\"new2.png\" width=\"60px\" style=\"margin-left: 0px;\"></div></div><div class=\"top\"><h3 style=\"font-family: Lato-Light; margin-bottom: 1x;\">\" Discipline is the bridge between goals and accomplishment \"</h3><img src=\"4.png\" alt=\"underline\" width=\"70%\"></div></section></body></html>";
+            try {
+                SharedPreferences SharedPrefObj = ctxAct.getSharedPreferences("URL", Context.MODE_PRIVATE);
+                SharedPreferences.Editor SharedPrefEdit = SharedPrefObj.edit();
+                SharedPrefEdit.putString("banner", "https://www.keralagbank.com");
+                SharedPrefEdit.apply();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (!RESULTDATA.equals(null)) {
                 m_webview.loadDataWithBaseURL("file:///android_asset/", RESULTDATA, "text/html", "utf-8", null);
             }
